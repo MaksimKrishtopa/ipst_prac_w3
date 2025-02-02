@@ -50,7 +50,7 @@ export function HomePage() {
 
       <ul className="space-y-4 mt-6">
         {(tasks[selectedDate] || []).map((task) => (
-          <li key={task.id} className="p-4 border border-gray-400 rounded bg-transparent flex flex-col">
+          <li key={task.id} className="p-4 border border-gray-300 rounded bg-transparent flex flex-col">
           <span
             className={`text-lg ${task.isCompleted ? "line-through text-gray-500" : "text-gray-800"}`}
             style={{
@@ -63,25 +63,25 @@ export function HomePage() {
           >
             {task.text}
           </span>
-          <span className="text-xs text-gray-500 mt-1">Дата создания: {task.id.split("T")[0]}</span>
+          <span className="text-xs text-gray-500 mt-1">{task.id.split("T")[0]}</span>
           <div className="flex space-x-2 mt-2">
-            <button
+          <button
               onClick={() => handleToggleTaskCompletion(task.id)}
-              className="p-2 flex-1 bg-green-500 text-white rounded hover:bg-green-700 flex justify-center"
+              className="p-2 flex-1 bg-purple-500 text-white rounded hover:bg-purple-600 flex justify-center"
             >
-              <Check size={18} />
+              <Check size={22} />
             </button>
             <button
               onClick={() => handleEditTask(task.id, prompt("Измените задачу:", task.text) || task.text)}
-              className="p-2 flex-1 bg-yellow-500 text-white rounded hover:bg-yellow-700 flex justify-center"
+              className="p-2 flex-1 bg-purple-400 text-white rounded hover:bg-purple-500 flex justify-center"
             >
-              <Pencil size={18} />
+              <Pencil size={22} />
             </button>
             <button
               onClick={() => handleRemoveTask(task.id)}
-              className="p-2 flex-1 bg-red-500 text-white rounded hover:bg-red-700 flex justify-center"
+              className="p-2 flex-1 bg-purple-300 text-white rounded hover:bg-purple-400 flex justify-center"
             >
-              <Trash size={18} />
+              <Trash size={22} />
             </button>
           </div>
           </li>
