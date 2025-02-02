@@ -2,7 +2,7 @@ import { useTaskStore } from "./useTaskStore";
 import { ITask } from "../../entities/task";
 
 export function useTaskActions() {
-  const { tasks, addTask, removeTask, editTask, toggleTaskCompletion } = useTaskStore();
+  const { tasks, selectedDate, setDate, addTask, removeTask, editTask, toggleTaskCompletion } = useTaskStore();
 
   const handleAddTask = (task: ITask) => {
     addTask(task);
@@ -22,9 +22,11 @@ export function useTaskActions() {
 
   return {
     tasks,
+    selectedDate,
+    setSelectedDate: setDate,
     handleAddTask,
     handleRemoveTask,
     handleEditTask,
-    handleToggleTaskCompletion
+    handleToggleTaskCompletion,
   };
 }
