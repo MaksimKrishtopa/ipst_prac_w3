@@ -1,10 +1,21 @@
 import { useState } from "react";
-import { useTaskActions } from "../../features/task/useTaskActions";
+import { useTaskActions } from "../../entities/task/hooks/useTaskActions";
 import { ITask } from "../../entities/task";
 import { Check, Pencil, Trash } from "lucide-react";
+import { Button } from "../../shared/ui/button";
+import { Input } from "../../shared/ui/input";
 
 export function HomePage() {
-  const { tasks, selectedDate, setSelectedDate, handleAddTask, handleRemoveTask, handleEditTask, handleToggleTaskCompletion } = useTaskActions();
+  const { 
+    tasks, 
+    selectedDate, 
+    setSelectedDate, 
+    handleAddTask, 
+    handleRemoveTask, 
+    handleEditTask, 
+    handleToggleTaskCompletion 
+  } = useTaskActions();
+
   const [taskText, setTaskText] = useState("");
 
   const handleSubmit = () => {
@@ -24,7 +35,7 @@ export function HomePage() {
       <h1 className="text-3xl font-bold text-center text-purple-700 mb-6">ToDo App</h1>
 
       <div className="flex flex-col items-center space-y-4">
-        <input
+        <Input 
           type="date"
           value={selectedDate}
           onChange={(e) => setSelectedDate(e.target.value)}
@@ -32,58 +43,46 @@ export function HomePage() {
         />
 
         <div className="flex w-full max-w-md space-x-2">
-          <input
+          <Input
             type="text"
             value={taskText}
             onChange={(e) => setTaskText(e.target.value)}
             placeholder="Новая задача"
             className="p-2 border border-gray-300 rounded flex-1"
           />
-          <button
-            onClick={handleSubmit}
-            className="p-2 bg-purple-700 text-white rounded hover:bg-purple-600 flex-shrink-0"
-          >
+          <Button onClick={handleSubmit} className="bg-purple-700 hover:bg-purple-600 flex-shrink-0">
             Добавить
-          </button>
+          </Button>
         </div>
       </div>
 
       <ul className="space-y-4 mt-6">
         {(tasks[selectedDate] || []).map((task) => (
           <li key={task.id} className="p-4 border border-gray-300 rounded bg-transparent flex flex-col">
-          <span
-            className={`text-lg ${task.isCompleted ? "line-through text-gray-500" : "text-gray-800"}`}
-            style={{
-              display: "-webkit-box",
-              WebkitBoxOrient: "vertical",
-              WebkitLineClamp: 3,
-              overflow: "hidden",
-              wordWrap: "break-word",
-            }}
-          >
-            {task.text}
-          </span>
-          <span className="text-xs text-gray-500 mt-1">{task.id.split("T")[0]}</span>
-          <div className="flex space-x-2 mt-2">
-          <button
-              onClick={() => handleToggleTaskCompletion(task.id)}
-              className="p-2 flex-1 bg-purple-500 text-white rounded hover:bg-purple-600 flex justify-center"
+            <span
+              className={`text-lg ${task.isCompleted ? "line-through text-gray-500" : "text-gray-800"}`}
+              style={{
+                display: "-webkit-box",
+                WebkitBoxOrient: "vertical",
+                WebkitLineClamp: 3,
+                overflow: "hidden",
+                wordWrap: "break-word",
+              }}
             >
-              <Check size={22} />
-            </button>
-            <button
-              onClick={() => handleEditTask(task.id, prompt("Измените задачу:", task.text) || task.text)}
-              className="p-2 flex-1 bg-purple-400 text-white rounded hover:bg-purple-500 flex justify-center"
-            >
-              <Pencil size={22} />
-            </button>
-            <button
-              onClick={() => handleRemoveTask(task.id)}
-              className="p-2 flex-1 bg-purple-300 text-white rounded hover:bg-purple-400 flex justify-center"
-            >
-              <Trash size={22} />
-            </button>
-          </div>
+              {task.text}
+            </span>
+            <span className="text-xs text-gray-500 mt-1">{task.id.split("T")[0]}</span>
+            <div className="flex space-x-2 mt-2">
+              <Button onClick={() => handleToggleTaskCompletion(task.id)} className="bg-purple-500 hover:bg-purple-600 flex-1 flex justify-center">
+                <Check size={22} />
+              </Button>
+              <Button onClick={() => handleEditTask(task.id, prompt("Измените задачу:", task.text) || task.text)} className="bg-purple-400 hover:bg-purple-500 flex-1 flex justify-center">
+                <Pencil size={22} />
+              </Button>
+              <Button onClick={() => handleRemoveTask(task.id)} className="bg-purple-300 hover:bg-purple-400 flex-1 flex justify-center">
+                <Trash size={22} />
+              </Button>
+            </div>
           </li>
         ))}
       </ul>

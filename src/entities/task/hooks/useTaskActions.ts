@@ -1,5 +1,5 @@
 import { useTaskStore } from "./useTaskStore";
-import { ITask } from "../../entities/task";
+import { ITask } from "../index";
 
 export function useTaskActions() {
   const { tasks, selectedDate, setDate, addTask, removeTask, editTask, toggleTaskCompletion } = useTaskStore();

@@ -1,4 +1,4 @@
-import { ITask } from "../../entities/task";
+import { ITask } from "../index";
 import { create } from "zustand";
 
 interface TaskStore {
