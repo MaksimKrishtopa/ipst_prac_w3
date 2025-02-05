@@ -7,5 +7,6 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
+  base: '/ipst_prac_w3/',
   
 })
